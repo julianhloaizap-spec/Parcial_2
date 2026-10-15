@@ -1,15 +1,15 @@
 package co.edu.uniquindio;
 
-import java.util.ArrayList;
 
 public class Operador {
+    //Atributos
     private String idOperador;
     private String nombreOperador;
     private String certificacionOperador;
     private String aniosEperiencia;
 
 
-
+    //Constructor
     public Operador(String idOperador, String nombreOperador, String certificacionOperador, String aniosEperiencia) {
         this.idOperador = idOperador;
         this.nombreOperador = nombreOperador;
@@ -17,6 +17,7 @@ public class Operador {
         this.aniosEperiencia = aniosEperiencia;
     }
 
+    //Getters and Setters
     public String getIdOperador() {
         return idOperador;
     }
