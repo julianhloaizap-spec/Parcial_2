@@ -7,7 +7,7 @@ public class Camara extends EquipoAudiovisual {
     private static final double ALQUILERCAMARAHORA = 12000;
     private static final double AlQUILERESTABILIZADOR = 15000;
     //Constructor
-    public Camara(String codigoEquipo, String marca,String modelo, String resolucionMaxima, boolean estabilizador) {
+    public Camara (String codigoEquipo, String marca,String modelo, String resolucionMaxima, boolean estabilizador) {
         super(codigoEquipo,marca,modelo);
         this.resolucionMaxima = resolucionMaxima;
         this.estabilizador = estabilizador;
