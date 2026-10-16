@@ -1,7 +1,3 @@
 package co.edu.uniquindio;
 
-
-public record Cliente(String idCliente, String nombreCliente, String telefonoCliente, String correoCliente, ) {
-
-
-}
+public record Cliente( String nombreCliente,  String numeroIdentificacionCliente,  String telefonoCliente, String correoElectronicoCliente) {}

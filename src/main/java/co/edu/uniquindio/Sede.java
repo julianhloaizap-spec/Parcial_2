@@ -3,44 +3,44 @@ package co.edu.uniquindio;
 import java.util.ArrayList;
 
 public class Sede {
-
-    //Atributos
     private String codigoSede;
     private String nombreSede;
     private String direccionSede;
-    private ArrayList<EquipoAudiovisual> listEquiposAudiovisuales;
+    private ArrayList<EquipoAudiovisual> equiposAudiovisualesSede;
 
-
-
-    //Constructor
     public Sede(String codigoSede, String nombreSede, String direccionSede) {
         this.codigoSede = codigoSede;
         this.nombreSede = nombreSede;
         this.direccionSede = direccionSede;
+        this.equiposAudiovisualesSede = new ArrayList<>();
     }
 
-    //Getters and Setters
     public String getCodigoSede() {
         return codigoSede;
-    }
-
-    public void setCodigoSede(String codigoSede) {
-        this.codigoSede = codigoSede;
     }
 
     public String getNombreSede() {
         return nombreSede;
     }
 
-    public void setNombreSede(String nombreSede) {
-        this.nombreSede = nombreSede;
-    }
-
     public String getDireccionSede() {
         return direccionSede;
     }
 
-    public void setDireccionSede(String direccionSede) {
-        this.direccionSede = direccionSede;
+    public ArrayList<EquipoAudiovisual> getEquiposAudiovisualesSede() {
+        return equiposAudiovisualesSede;
+    }
+
+    public boolean agregarEquipoAudiovisual(EquipoAudiovisual equipoAudiovisual) {
+        if (equipoAudiovisual == null) {
+            return false;
+        }
+        for (int i = 0; i < equiposAudiovisualesSede.size(); i++) {
+            if (equiposAudiovisualesSede.get(i).getCodigoEquipoAudiovisual().equalsIgnoreCase(equipoAudiovisual.getCodigoEquipoAudiovisual())) {
+                return false;
+            }
+        }
+        equiposAudiovisualesSede.add(equipoAudiovisual);
+        return true;
     }
 }

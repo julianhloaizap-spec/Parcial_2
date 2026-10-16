@@ -4,52 +4,38 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Reserva {
-
-    //Atributos
-    private String idReserva;
-    private Cliente infoCliente;
-    private LocalDate fechaSolicitada;
-    private Turno turno;
-    private Operador operador;
+    private String codigoReserva;
+    private Cliente clienteReserva;
+    private LocalDate fechaReserva;
+    private Turno turnoReserva;
     private EstadoReserva estadoReserva;
+    private Operador operadorReserva;
+    private ArrayList<DetalleReserva> detallesReserva;
 
-    private ArrayList<DetalleReserva> listDetalleReserva;
-
-    //Constructor
-    public Reserva(String idReserva, Cliente infoCliente, LocalDate fechaSolicitada, Turno turno, Operador operador, ArrayList<DetalleReserva> listDetalleReserva, EstadoReserva estadoReserva) {
-        this.idReserva = idReserva;
-        this.infoCliente = infoCliente;
-        this.fechaSolicitada = fechaSolicitada;
-        this.turno = turno;
-        this.operador = null;
-        this.listDetalleReserva = listDetalleReserva;
-        this.estadoReserva = estadoReserva.SOLICITADA;
-        this.listDetalleReserva = new ArrayList<>();
+    public Reserva(String codigoReserva, Cliente clienteReserva, LocalDate fechaReserva, Turno turnoReserva) {
+        this.codigoReserva = codigoReserva;
+        this.clienteReserva = clienteReserva;
+        this.fechaReserva = fechaReserva;
+        this.turnoReserva = turnoReserva;
+        this.estadoReserva = EstadoReserva.SOLICITADA;
+        this.operadorReserva = null;
+        this.detallesReserva = new ArrayList<>();
     }
 
-    //Getters and Setters
-    public String getIdReserva() {
-        return idReserva;
+    public String getCodigoReserva() {
+        return codigoReserva;
     }
 
-    public Cliente getInfoCliente() {
-        return infoCliente;
+    public Cliente getClienteReserva() {
+        return clienteReserva;
     }
 
-    public LocalDate getFechaSolicitada() {
-        return fechaSolicitada;
+    public LocalDate getFechaReserva() {
+        return fechaReserva;
     }
 
-    public Turno getTurno() {
-        return turno;
-    }
-
-    public Operador getOperador() {
-        return operador;
-    }
-
-    public void setOperador(Operador operador) {
-        this.operador = operador;
+    public Turno getTurnoReserva() {
+        return turnoReserva;
     }
 
     public EstadoReserva getEstadoReserva() {
@@ -60,27 +46,61 @@ public class Reserva {
         this.estadoReserva = estadoReserva;
     }
 
-    public ArrayList<DetalleReserva> getListDetalleReserva() {
-        return listDetalleReserva;
+    public Operador getOperadorReserva() {
+        return operadorReserva;
     }
 
-    public void setListDetalleReserva(ArrayList<DetalleReserva> listDetalleReserva) {
-        this.listDetalleReserva = listDetalleReserva;
+    public void setOperadorReserva(Operador operadorReserva) {
+        this.operadorReserva = operadorReserva;
     }
 
-    public boolean agregarDetalleReserva(int horasUsoEquipo, EquipoAudiovisual equipoAudiovisual) {
-        if (equipoAudiovisual == null || horasUsoEquipo <= 0) {
+    public ArrayList<DetalleReserva> getDetallesReserva() {
+        return detallesReserva;
+    }
+
+    public boolean agregarDetalle(EquipoAudiovisual equipoAudiovisual, int horas) {
+        if (equipoAudiovisual == null || horas <= 0) {
             return false;
         }
-        if (equipoAudiovisual.getEsta() != EstadoEquipo.DISPONIBLE) {
+        if (equipoAudiovisual.getCondicionEquipoAudiovisual() != CondicionEquipoAudiovisual.DISPONIBLE) {
             return false;
         }
-        if (tieneEquipo(equipoAudiovisual.getCodigo())) {
+        if (siEquipoAudiovisual(equipoAudiovisual.getCodigoEquipoAudiovisual()) == true) {
             return false;
         }
-        detalles.add(new DetalleReserva(equipoAudiovisual, horas));
+        detallesReserva.add(new DetalleReserva(equipoAudiovisual, horas));
         return true;
     }
+
+    public boolean siEquipoAudiovisual(String codigoEquipoAudiovisual) {
+        for (int i = 0; i < detallesReserva.size(); i++) {
+            if (detallesReserva.get(i).equipoAudiovisualDetalleReserva().getCodigoEquipoAudiovisual().equalsIgnoreCase(codigoEquipoAudiovisual)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean siOperador() {
+        for (int i = 0; i < detallesReserva.size(); i++) {
+            if (detallesReserva.get(i).equipoAudiovisualDetalleReserva().siOperador() == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double calcularValorTotal() {
+        double total = 0.0;
+        for (int i = 0; i < detallesReserva.size(); i++) {
+            total = total + detallesReserva.get(i).calcularSubtotal();
+        }
+        return total;
+    }
+}
+
+
+}
 
 
 

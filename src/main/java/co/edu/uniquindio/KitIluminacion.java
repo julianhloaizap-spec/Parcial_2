@@ -1,51 +1,34 @@
 package co.edu.uniquindio;
 
 public class KitIluminacion extends EquipoAudiovisual {
-    //Atributos
-    private int cantidadLuces;
-    private boolean controlInalambrico;
-    private static final double ALQUILERKITILUMINACION = 12000;
-    private static final double ALQUILERCONTROLINALAMBRICO = 15000;
-    //Constructor
+    private int cantidadLucesKitIluminacion;
+    private boolean tieneControlInalambricoKitIluminacion;
 
-
-    public KitIluminacion(String codigoEquipo, String marca, String modelo, int cantidadLuces, boolean controlInalambrico) {
-        super(codigoEquipo, marca, modelo);
-        this.cantidadLuces = cantidadLuces;
-        this.controlInalambrico = controlInalambrico;
-    }
-    //Getters and Setters
-
-    public int getCantidadLuces() {
-        return cantidadLuces;
+    public KitIluminacion(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, CondicionEquipoAudiovisual condicionEquipoAudiovisual, int cantidadLucesKitIluminacion, boolean tieneControlInalambricoKitIluminacion) {
+        super(codigoEquipoAudiovisual, marcaEquipoAudiovisual, modeloEquipoAudiovisual, condicionEquipoAudiovisual);
+        this.cantidadLucesKitIluminacion = cantidadLucesKitIluminacion;
+        this.tieneControlInalambricoKitIluminacion = tieneControlInalambricoKitIluminacion;
     }
 
-    public void setCantidadLuces(int cantidadLuces) {
-        this.cantidadLuces = cantidadLuces;
+    public int getCantidadLucesKitIluminacion() {
+        return cantidadLucesKitIluminacion;
     }
 
-    public boolean getControlInalambrico() {
-        return controlInalambrico;
-    }
-
-    public void setControlInalambrico(boolean controlInalambrico) {
-        this.controlInalambrico = controlInalambrico;
-    }
-    public double getALQUILERKITILUMINACION() {
-        return ALQUILERKITILUMINACION;
-    }
-    public double getAlQUILERCONTROLINALAMBRICO() {
-        return ALQUILERCONTROLINALAMBRICO;
+    public boolean siControlInalambricoKitIluminacion() {
+        return tieneControlInalambricoKitIluminacion;
     }
 
     @Override
-    public double calcularCostoAlquiler(double ALQUILERKITILUMINACION, double ALQUILERKITILUMINACION, int horasUsoEquipo) {
-        double costo= 0;
-        if (controlInalambrico) {
-            costo= ALQUILERKITILUMINACION * horasUsoEquipo + ALQUILERCONTROLINALAMBRICO;
-        } else {
-            costo = ALQUILERKITILUMINACION * horasUsoEquipo;
+    public boolean siOperador() {
+        return false;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(int horas) {
+        double costoBase = 10000.0 * horas;
+        if (tieneControlInalambricoKitIluminacion == true) {
+            costoBase = costoBase + 12000.0;
         }
-        return costo;
+        return costoBase;
     }
 }

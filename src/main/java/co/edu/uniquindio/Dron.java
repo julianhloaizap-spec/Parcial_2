@@ -1,50 +1,68 @@
 package co.edu.uniquindio;
 
 public class Dron extends EquipoAudiovisual {
-    //Atributos
-    private int vueloMinutos;
-    private boolean bateriaAdicional;
-    private static final double ALQUILERDRONHORA = 18000;
-    private static final double ALQUILERBATERIAADICIONAL = 20000;
-    //Constructor
+    private int autonomiaMinutosDron;
+    private boolean tieneBateriaAdicionalDron;
 
-    public Dron (String codigoEquipo, String marca, String modelo, int vueloMinutos, boolean bateriaAdicional) {
-        super(codigoEquipo, marca, modelo);
-        this.vueloMinutos = vueloMinutos;
-        this.bateriaAdicional = bateriaAdicional;
-    }
-    //Getters and Setters
-
-    public int getVueloMinutos() {
-        return vueloMinutos;
+    public Dron(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, CondicionEquipoAudiovisual condicionEquipoAudiovisual, int autonomiaMinutosDron, boolean tieneBateriaAdicionalDron) {
+        super(codigoEquipoAudiovisual, marcaEquipoAudiovisual, modeloEquipoAudiovisual, condicionEquipoAudiovisual);
+        this.autonomiaMinutosDron = autonomiaMinutosDron;
+        this.tieneBateriaAdicionalDron = tieneBateriaAdicionalDron;
     }
 
-    public void setVueloMinutos(int vueloMinutos) {
-        this.vueloMinutos = vueloMinutos;
+    public int getAutonomiaMinutosDron() {
+        return autonomiaMinutosDron;
     }
 
-    public boolean getBateriaAdicional() {
-        return bateriaAdicional;
-    }
-
-    public void setBateriaAdicional(boolean bateriaAdicional) {
-        this.bateriaAdicional = bateriaAdicional;
-    }
-    public double getALQUILERDRONHORA() {
-        return ALQUILERDRONHORA;
-    }
-    public double getALQUILERBATERIAADICIONAL() {
-        return ALQUILERBATERIAADICIONAL;
+    public boolean siBateriaAdicionalDron() {
+        return tieneBateriaAdicionalDron;
     }
 
     @Override
-    public double calcularCostoAlquiler(double ALQUILERDRONHORA, double ALQUILERBATERIAADICIONAL, int horasUsoEquipo) {
-        double costo = 0;
-        if (bateriaAdicional) {
-            costo = ALQUILERDRONHORA * horasUsoEquipo + ALQUILERBATERIAADICIONAL;
-        } else {
-            costo = ALQUILERDRONHORA * horasUsoEquipo;
+    public boolean siOperador() {
+        return true;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(int horas) {
+        double costoBase = 18000.0 * horas;
+        if (tieneBateriaAdicionalDron == true) {
+            costoBase = costoBase + 20000.0;
         }
-        return costo;
+        return costoBase;
+    }
+}
+KitIluminacion.java
+        Java
+public class KitIluminacion extends EquipoAudiovisual {
+    private int cantidadLucesKitIluminacion;
+    private boolean tieneControlInalambricoKitIluminacion;
+
+    public KitIluminacion(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, CondicionEquipoAudiovisual condicionEquipoAudiovisual, int cantidadLucesKitIluminacion, boolean tieneControlInalambricoKitIluminacion) {
+        super(codigoEquipoAudiovisual, marcaEquipoAudiovisual, modeloEquipoAudiovisual, condicionEquipoAudiovisual);
+        this.cantidadLucesKitIluminacion = cantidadLucesKitIluminacion;
+        this.tieneControlInalambricoKitIluminacion = tieneControlInalambricoKitIluminacion;
+    }
+
+    public int getCantidadLucesKitIluminacion() {
+        return cantidadLucesKitIluminacion;
+    }
+
+    public boolean siControlInalambricoKitIluminacion() {
+        return tieneControlInalambricoKitIluminacion;
+    }
+
+    @Override
+    public boolean siOperador() {
+        return false;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(int horas) {
+        double costoBase = 10000.0 * horas;
+        if (tieneControlInalambricoKitIluminacion == true) {
+            costoBase = costoBase + 12000.0;
+        }
+        return costoBase;
     }
 }
