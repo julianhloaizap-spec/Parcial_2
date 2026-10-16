@@ -1,50 +1,34 @@
 package co.edu.uniquindio;
 
 public class Dron extends EquipoAudiovisual {
-    //Atributos
-    private int vueloMinutos;
-    private boolean bateriaAdicional;
-    private static final double ALQUILERDRONHORA = 18000;
-    private static final double ALQUILERBATERIAADICIONAL = 20000;
-    //Constructor
+    private int autonomiaMinutosDron;
+    private boolean tieneBateriaAdicionalDron;
 
-    public Dron (String codigoEquipo, String marca, String modelo, int vueloMinutos, boolean bateriaAdicional) {
-        super(codigoEquipo, marca, modelo);
-        this.vueloMinutos = vueloMinutos;
-        this.bateriaAdicional = bateriaAdicional;
-    }
-    //Getters and Setters
-
-    public int getVueloMinutos() {
-        return vueloMinutos;
+    public Dron(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, EstadoEquipoAudiovisual estadoEquipoAudiovisual, int autonomiaMinutosDron, boolean tieneBateriaAdicionalDron) {
+        super(codigoEquipoAudiovisual, marcaEquipoAudiovisual, modeloEquipoAudiovisual, estadoEquipoAudiovisual);
+        this.autonomiaMinutosDron = autonomiaMinutosDron;
+        this.tieneBateriaAdicionalDron = tieneBateriaAdicionalDron;
     }
 
-    public void setVueloMinutos(int vueloMinutos) {
-        this.vueloMinutos = vueloMinutos;
+    public int getAutonomiaMinutosDron() {
+        return autonomiaMinutosDron;
     }
 
-    public boolean getBateriaAdicional() {
-        return bateriaAdicional;
-    }
-
-    public void setBateriaAdicional(boolean bateriaAdicional) {
-        this.bateriaAdicional = bateriaAdicional;
-    }
-    public double getALQUILERDRONHORA() {
-        return ALQUILERDRONHORA;
-    }
-    public double getALQUILERBATERIAADICIONAL() {
-        return ALQUILERBATERIAADICIONAL;
+    public boolean siBateriaAdicionalDron() {
+        return tieneBateriaAdicionalDron;
     }
 
     @Override
-    public double calcularCostoAlquiler(double ALQUILERDRONHORA, double ALQUILERBATERIAADICIONAL, int horasUsoEquipo) {
-        double costo = 0;
-        if (bateriaAdicional) {
-            costo = ALQUILERDRONHORA * horasUsoEquipo + ALQUILERBATERIAADICIONAL;
-        } else {
-            costo = ALQUILERDRONHORA * horasUsoEquipo;
+    public boolean siOperador() {
+        return true;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(int horas) {
+        double costoBase = 18000.0 * horas;
+        if (tieneBateriaAdicionalDron == true) {
+            costoBase = costoBase + 20000.0;
         }
-        return costo;
+        return costoBase;
     }
 }

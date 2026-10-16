@@ -62,7 +62,7 @@ public class Reserva {
         if (equipoAudiovisual == null || horas <= 0) {
             return false;
         }
-        if (equipoAudiovisual.getCondicionEquipoAudiovisual() != CondicionEquipoAudiovisual.DISPONIBLE) {
+        if (equipoAudiovisual.getEstadoEquipoAudiovisual() != EstadoEquipoAudiovisual.DISPONIBLE) {
             return false;
         }
         if (siEquipoAudiovisual(equipoAudiovisual.getCodigoEquipoAudiovisual()) == true) {
@@ -74,7 +74,7 @@ public class Reserva {
 
     public boolean siEquipoAudiovisual(String codigoEquipoAudiovisual) {
         for (int i = 0; i < detallesReserva.size(); i++) {
-            if (detallesReserva.get(i).equipoAudiovisualDetalleReserva().getCodigoEquipoAudiovisual().equalsIgnoreCase(codigoEquipoAudiovisual)) {
+            if (detallesReserva.get(i).getEquipoAudiovisualDetalleReserva().getCodigoEquipoAudiovisual().equalsIgnoreCase(codigoEquipoAudiovisual)) {
                 return true;
             }
         }
@@ -83,7 +83,7 @@ public class Reserva {
 
     public boolean siOperador() {
         for (int i = 0; i < detallesReserva.size(); i++) {
-            if (detallesReserva.get(i).equipoAudiovisualDetalleReserva().siOperador() == true) {
+            if (detallesReserva.get(i).getEquipoAudiovisualDetalleReserva().siOperador() == true) {
                 return true;
             }
         }
@@ -97,11 +97,4 @@ public class Reserva {
         }
         return total;
     }
-}
-
-
-}
-
-
-
 }

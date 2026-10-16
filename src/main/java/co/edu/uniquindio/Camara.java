@@ -1,44 +1,34 @@
 package co.edu.uniquindio;
 
 public class Camara extends EquipoAudiovisual {
-    //Atributos
-    private String resolucionMaxima;
-    private boolean estabilizador;
-    private static final double ALQUILERCAMARAHORA = 12000;
-    private static final double ALQUILERESTABILIZADOR = 15000;
-    //Constructor
-    public Camara (String codigoEquipo, String marca,String modelo, String resolucionMaxima, boolean estabilizador) {
-        super(codigoEquipo,marca,modelo);
-        this.resolucionMaxima = resolucionMaxima;
-        this.estabilizador = estabilizador;
+    private String resolucionMaximaCamara;
+    private boolean tieneEstabilizadorCamara;
+
+    public Camara(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, EstadoEquipoAudiovisual estadoEquipoAudiovisual, String resolucionMaximaCamara, boolean tieneEstabilizadorCamara) {
+        super(codigoEquipoAudiovisual, marcaEquipoAudiovisual, modeloEquipoAudiovisual, estadoEquipoAudiovisual);
+        this.resolucionMaximaCamara = resolucionMaximaCamara;
+        this.tieneEstabilizadorCamara = tieneEstabilizadorCamara;
     }
-    //Getters and Setters
-    public String getResolucionMaxima() {
-        return resolucionMaxima;
+
+    public String getResolucionMaximaCamara() {
+        return resolucionMaximaCamara;
     }
-    public void setResolucionMaxima(String resolucionMaxima) {
-        this.resolucionMaxima = resolucionMaxima;
+
+    public boolean siEstabilizadorCamara() {
+        return tieneEstabilizadorCamara;
     }
-    public boolean getEstabilizador() {
-        return estabilizador;
-    }
-    public void setEstabilizador(boolean estabilizador) {
-        this.estabilizador = estabilizador;
-    }
-    public double getALQUILERCAMARAHORA() {
-        return ALQUILERCAMARAHORA;
-    }
-    public double getALQUILERESTABILIZADOR() {
-        return AlQUILERESTABILIZADOR;}
 
     @Override
-    public double calcularCostoAlquiler(double ALQUILERCAMARAHORA, double ALQUILERESTABILIZADOR, int horasUsoEquipo) {
-        double costo = 0;
-        if (estabilizador) {
-            costo = ALQUILERCAMARAHORA * horasUsoEquipo + ALQUILERESTABILIZADOR;
-        } else {
-            costo = ALQUILERCAMARAHORA * horasUsoEquipo;
+    public boolean siOperador() {
+        return false;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(int horas) {
+        double costoBase = 12000.0 * horas;
+        if (tieneEstabilizadorCamara == true) {
+            costoBase = costoBase + 15000.0;
         }
-        return costo;
+        return costoBase;
     }
 }

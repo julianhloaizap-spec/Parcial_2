@@ -4,13 +4,13 @@ public abstract class EquipoAudiovisual {
     private String codigoEquipoAudiovisual;
     private String marcaEquipoAudiovisual;
     private String modeloEquipoAudiovisual;
-    private CondicionEquipoAudiovisual condicionEquipoAudiovisual;
+    private EstadoEquipoAudiovisual estadoEquipoAudiovisual;
 
-    public EquipoAudiovisual(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, CondicionEquipoAudiovisual condicionEquipoAudiovisual) {
+    public EquipoAudiovisual(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, EstadoEquipoAudiovisual estadoEquipoAudiovisual) {
         this.codigoEquipoAudiovisual = codigoEquipoAudiovisual;
         this.marcaEquipoAudiovisual = marcaEquipoAudiovisual;
         this.modeloEquipoAudiovisual = modeloEquipoAudiovisual;
-        this.condicionEquipoAudiovisual = condicionEquipoAudiovisual;
+        this.estadoEquipoAudiovisual = estadoEquipoAudiovisual;
     }
 
     public String getCodigoEquipoAudiovisual() {
@@ -25,12 +25,12 @@ public abstract class EquipoAudiovisual {
         return modeloEquipoAudiovisual;
     }
 
-    public CondicionEquipoAudiovisual getCondicionEquipoAudiovisual() {
-        return condicionEquipoAudiovisual;
+    public EstadoEquipoAudiovisual getEstadoEquipoAudiovisual() {
+        return estadoEquipoAudiovisual;
     }
 
-    public void setCondicionEquipoAudiovisual(CondicionEquipoAudiovisual condicionEquipoAudiovisual) {
-        this.condicionEquipoAudiovisual = condicionEquipoAudiovisual;
+    public void setEstadoEquipoAudiovisual(EstadoEquipoAudiovisual estadoEquipoAudiovisual) {
+        this.estadoEquipoAudiovisual = estadoEquipoAudiovisual;
     }
 
     public abstract boolean siOperador();

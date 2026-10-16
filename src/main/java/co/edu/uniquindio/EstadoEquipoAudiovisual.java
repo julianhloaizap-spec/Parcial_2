@@ -1,6 +1,6 @@
 package co.edu.uniquindio;
 
-public enum CodicionEquipoAudiovisual {
+public enum EstadoEquipoAudiovisual {
     DISPONIBLE,
     EN_MANTENIMIENTO,
     FUERA_DE_SERVICIO

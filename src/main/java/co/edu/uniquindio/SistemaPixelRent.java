@@ -29,7 +29,7 @@ public class SistemaPixelRent {
 
     public Cliente buscarCliente(String id) {
         for (int i = 0; i < clientesSistemaPixelRent.size(); i++) {
-            if (clientesSistemaPixelRent.get(i).numeroIdentificacionCliente().equalsIgnoreCase(id)) {
+            if (clientesSistemaPixelRent.get(i).getNumeroIdentificacionCliente().equalsIgnoreCase(id)) {
                 return clientesSistemaPixelRent.get(i);
             }
         }
@@ -38,7 +38,7 @@ public class SistemaPixelRent {
 
     public Operador buscarOperador(String id) {
         for (int i = 0; i < operadoresSistemaPixelRent.size(); i++) {
-            if (operadoresSistemaPixelRent.get(i).numeroIdentificacionOperador().equalsIgnoreCase(id)) {
+            if (operadoresSistemaPixelRent.get(i).getNumeroIdentificacionOperador().equalsIgnoreCase(id)) {
                 return operadoresSistemaPixelRent.get(i);
             }
         }
@@ -85,7 +85,7 @@ public class SistemaPixelRent {
     }
 
     public boolean registrarCliente(Cliente cliente) {
-        if (cliente == null || buscarCliente(cliente.numeroIdentificacionCliente()) != null) {
+        if (cliente == null || buscarCliente(cliente.getNumeroIdentificacionCliente()) != null) {
             return false;
         }
         clientesSistemaPixelRent.add(cliente);
@@ -93,7 +93,7 @@ public class SistemaPixelRent {
     }
 
     public boolean registrarOperador(Operador operador) {
-        if (operador == null || buscarOperador(operador.numeroIdentificacionOperador()) != null) {
+        if (operador == null || buscarOperador(operador.getNumeroIdentificacionOperador()) != null) {
             return false;
         }
         operadoresSistemaPixelRent.add(operador);
@@ -116,26 +116,26 @@ public class SistemaPixelRent {
     public String agregarEquipoAudiovisualAReserva(String codigoReserva, String codigoEquipoAudiovisual, int horas) {
         Reserva reserva = buscarReserva(codigoReserva);
         if (reserva == null) {
-            return "La reserva no existe.";
+            return "ERROR: La reserva no existe.";
         }
         if (reserva.getEstadoReserva() != EstadoReserva.SOLICITADA) {
-            return "Solo se pueden modificar reservas en estado SOLICITADA.";
+            return "ERROR: Solo se pueden modificar reservas en estado SOLICITADA.";
         }
         EquipoAudiovisual equipoAudiovisual = buscarEquipoAudiovisual(codigoEquipoAudiovisual);
         if (equipoAudiovisual == null) {
-            return "El equipo audiovisual no existe.";
+            return "ERROR: El equipo audiovisual no existe.";
         }
-        if (equipoAudiovisual.getCondicionEquipoAudiovisual() != CondicionEquipoAudiovisual.DISPONIBLE) {
-            return "El equipo audiovisual no está en condición DISPONIBLE.";
+        if (equipoAudiovisual.getEstadoEquipoAudiovisual() != EstadoEquipoAudiovisual.DISPONIBLE) {
+            return "ERROR: El equipo audiovisual no está en estado DISPONIBLE.";
         }
         if (reserva.siEquipoAudiovisual(codigoEquipoAudiovisual) == true) {
-            return "El equipo audiovisual ya está incluido en esta reserva.";
+            return "ERROR: El equipo audiovisual ya está incluido en esta reserva.";
         }
         boolean exito = reserva.agregarDetalle(equipoAudiovisual, horas);
         if (exito == true) {
-            return "Equipo audiovisual agregado exitosamente a la reserva.";
+            return "OK: Equipo audiovisual agregado exitosamente a la reserva.";
         } else {
-            return "No se pudo agregar el equipo audiovisual a la reserva.";
+            return "ERROR: No se pudo agregar el equipo audiovisual a la reserva.";
         }
     }
 
@@ -155,23 +155,23 @@ public class SistemaPixelRent {
     public String confirmarReserva(String codigoReserva) {
         Reserva reserva = buscarReserva(codigoReserva);
         if (reserva == null) {
-            return "Reserva no encontrada.";
+            return "ERROR: Reserva no encontrada.";
         }
         if (reserva.getEstadoReserva() == EstadoReserva.CANCELADA || reserva.getEstadoReserva() == EstadoReserva.FINALIZADA) {
-            return "Una reserva Cancelada o Finalizada no puede ser confirmada.";
+            return "ERROR: Una reserva Cancelada o Finalizada no puede ser confirmada.";
         }
         if (reserva.getEstadoReserva() == EstadoReserva.CONFIRMADA) {
-            return "La reserva ya se encuentra confirmada.";
+            return "AVISO: La reserva ya se encuentra confirmada.";
         }
         if (reserva.getDetallesReserva().isEmpty() == true) {
-            return "La reserva debe contener al menos un equipo audiovisual.";
+            return "ERROR: La reserva debe contener al menos un equipo audiovisual.";
         }
         if (reserva.siOperador() == true && reserva.getOperadorReserva() == null) {
-            return "La reserva contiene equipos que requieren un operador asignado.";
+            return "ERROR: La reserva contiene equipos que requieren un operador asignado.";
         }
 
         for (int i = 0; i < reserva.getDetallesReserva().size(); i++) {
-            EquipoAudiovisual equipoAudiovisual = reserva.getDetallesReserva().get(i).equipoAudiovisualDetalleReserva();
+            EquipoAudiovisual equipoAudiovisual = reserva.getDetallesReserva().get(i).getEquipoAudiovisualDetalleReserva();
             for (int j = 0; j < reservasSistemaPixelRent.size(); j++) {
                 Reserva otra = reservasSistemaPixelRent.get(j);
                 if (otra.getCodigoReserva().equalsIgnoreCase(reserva.getCodigoReserva()) == false && otra.getEstadoReserva() == EstadoReserva.CONFIRMADA) {
@@ -185,25 +185,25 @@ public class SistemaPixelRent {
             }
         }
         reserva.setEstadoReserva(EstadoReserva.CONFIRMADA);
-        return "Reserva " + codigoReserva + " confirmada con éxito.";
+        return "OK: Reserva " + codigoReserva + " confirmada con éxito.";
     }
 
     public String cambiarEstadoReserva(String codigoReserva, EstadoReserva nuevoEstado) {
         Reserva reserva = buscarReserva(codigoReserva);
         if (reserva == null) {
-            return "Reserva no encontrada.";
+            return "ERROR: Reserva no encontrada.";
         }
         EstadoReserva estadoActual = reserva.getEstadoReserva();
         if (estadoActual == EstadoReserva.CANCELADA || estadoActual == EstadoReserva.FINALIZADA) {
-            return "No se puede cambiar el estado de una reserva que ya está CANCELADA o FINALIZADA.";
+            return "ERROR: No se puede cambiar el estado de una reserva que ya está CANCELADA o FINALIZADA.";
         }
         if (nuevoEstado == EstadoReserva.CONFIRMADA) {
             return confirmarReserva(codigoReserva);
         } else if (nuevoEstado == EstadoReserva.CANCELADA || nuevoEstado == EstadoReserva.FINALIZADA) {
             reserva.setEstadoReserva(nuevoEstado);
-            return "Estado cambiado a " + nuevoEstado + " exitosamente.";
+            return "OK: Estado cambiado a " + nuevoEstado + " exitosamente.";
         } else {
-            return "Estado no válido.";
+            return "ERROR: Estado no válido.";
         }
     }
 
@@ -214,7 +214,7 @@ public class SistemaPixelRent {
         }
         for (int i = 0; i < equiposAudiovisualesSistemaPixelRent.size(); i++) {
             EquipoAudiovisual eq = equiposAudiovisualesSistemaPixelRent.get(i);
-            if (eq.getCondicionEquipoAudiovisual() == CondicionEquipoAudiovisual.DISPONIBLE) {
+            if (eq.getEstadoEquipoAudiovisual() == EstadoEquipoAudiovisual.DISPONIBLE) {
                 boolean ocupado = false;
                 for (int j = 0; j < reservasSistemaPixelRent.size(); j++) {
                     Reserva res = reservasSistemaPixelRent.get(j);
@@ -239,7 +239,7 @@ public class SistemaPixelRent {
         ArrayList<Reserva> confirmadas = new ArrayList<>();
         for (int i = 0; i < reservasSistemaPixelRent.size(); i++) {
             Reserva res = reservasSistemaPixelRent.get(i);
-            if (res.getClienteReserva().numeroIdentificacionCliente().equalsIgnoreCase(idCliente)
+            if (res.getClienteReserva().getNumeroIdentificacionCliente().equalsIgnoreCase(idCliente)
                     && res.getEstadoReserva() == EstadoReserva.CONFIRMADA) {
                 confirmadas.add(res);
             }
