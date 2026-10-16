@@ -116,26 +116,26 @@ public class SistemaPixelRent {
     public String agregarEquipoAudiovisualAReserva(String codigoReserva, String codigoEquipoAudiovisual, int horas) {
         Reserva reserva = buscarReserva(codigoReserva);
         if (reserva == null) {
-            return "ERROR: La reserva no existe.";
+            return "La reserva no existe.";
         }
         if (reserva.getEstadoReserva() != EstadoReserva.SOLICITADA) {
-            return "ERROR: Solo se pueden modificar reservas en estado SOLICITADA.";
+            return "Solo se pueden modificar reservas en estado SOLICITADA.";
         }
         EquipoAudiovisual equipoAudiovisual = buscarEquipoAudiovisual(codigoEquipoAudiovisual);
         if (equipoAudiovisual == null) {
-            return "ERROR: El equipo audiovisual no existe.";
+            return "El equipo audiovisual no existe.";
         }
         if (equipoAudiovisual.getEstadoEquipoAudiovisual() != EstadoEquipoAudiovisual.DISPONIBLE) {
-            return "ERROR: El equipo audiovisual no está en estado DISPONIBLE.";
+            return "El equipo audiovisual no está en estado DISPONIBLE.";
         }
         if (reserva.siEquipoAudiovisual(codigoEquipoAudiovisual) == true) {
-            return "ERROR: El equipo audiovisual ya está incluido en esta reserva.";
+            return "El equipo audiovisual ya está incluido en esta reserva.";
         }
         boolean exito = reserva.agregarDetalle(equipoAudiovisual, horas);
         if (exito == true) {
-            return "OK: Equipo audiovisual agregado exitosamente a la reserva.";
+            return "Equipo audiovisual agregado exitosamente a la reserva.";
         } else {
-            return "ERROR: No se pudo agregar el equipo audiovisual a la reserva.";
+            return "No se pudo agregar el equipo audiovisual a la reserva.";
         }
     }
 
@@ -155,19 +155,19 @@ public class SistemaPixelRent {
     public String confirmarReserva(String codigoReserva) {
         Reserva reserva = buscarReserva(codigoReserva);
         if (reserva == null) {
-            return "ERROR: Reserva no encontrada.";
+            return "Reserva no encontrada.";
         }
         if (reserva.getEstadoReserva() == EstadoReserva.CANCELADA || reserva.getEstadoReserva() == EstadoReserva.FINALIZADA) {
-            return "ERROR: Una reserva Cancelada o Finalizada no puede ser confirmada.";
+            return "Una reserva Cancelada o Finalizada no puede ser confirmada.";
         }
         if (reserva.getEstadoReserva() == EstadoReserva.CONFIRMADA) {
-            return "AVISO: La reserva ya se encuentra confirmada.";
+            return "La reserva ya se encuentra confirmada.";
         }
         if (reserva.getDetallesReserva().isEmpty() == true) {
-            return "ERROR: La reserva debe contener al menos un equipo audiovisual.";
+            return "La reserva debe contener al menos un equipo audiovisual.";
         }
         if (reserva.siOperador() == true && reserva.getOperadorReserva() == null) {
-            return "ERROR: La reserva contiene equipos que requieren un operador asignado.";
+            return "La reserva contiene equipos que requieren un operador asignado.";
         }
 
         for (int i = 0; i < reserva.getDetallesReserva().size(); i++) {
@@ -177,7 +177,7 @@ public class SistemaPixelRent {
                 if (otra.getCodigoReserva().equalsIgnoreCase(reserva.getCodigoReserva()) == false && otra.getEstadoReserva() == EstadoReserva.CONFIRMADA) {
                     if (otra.getFechaReserva().equals(reserva.getFechaReserva()) && otra.getTurnoReserva() == reserva.getTurnoReserva()) {
                         if (otra.siEquipoAudiovisual(equipoAudiovisual.getCodigoEquipoAudiovisual()) == true) {
-                            return "ERROR: El equipo audiovisual " + equipoAudiovisual.getCodigoEquipoAudiovisual() + " ya está reservado y confirmado para la fecha ("
+                            return "El equipo audiovisual " + equipoAudiovisual.getCodigoEquipoAudiovisual() + " ya está reservado y confirmado para la fecha ("
                                     + reserva.getFechaReserva() + ") y turno (" + reserva.getTurnoReserva() + ").";
                         }
                     }
@@ -185,25 +185,25 @@ public class SistemaPixelRent {
             }
         }
         reserva.setEstadoReserva(EstadoReserva.CONFIRMADA);
-        return "OK: Reserva " + codigoReserva + " confirmada con éxito.";
+        return "Reserva " + codigoReserva + " confirmada con éxito.";
     }
 
     public String cambiarEstadoReserva(String codigoReserva, EstadoReserva nuevoEstado) {
         Reserva reserva = buscarReserva(codigoReserva);
         if (reserva == null) {
-            return "ERROR: Reserva no encontrada.";
+            return "Reserva no encontrada.";
         }
         EstadoReserva estadoActual = reserva.getEstadoReserva();
         if (estadoActual == EstadoReserva.CANCELADA || estadoActual == EstadoReserva.FINALIZADA) {
-            return "ERROR: No se puede cambiar el estado de una reserva que ya está CANCELADA o FINALIZADA.";
+            return "No se puede cambiar el estado de una reserva que ya está CANCELADA o FINALIZADA.";
         }
         if (nuevoEstado == EstadoReserva.CONFIRMADA) {
             return confirmarReserva(codigoReserva);
         } else if (nuevoEstado == EstadoReserva.CANCELADA || nuevoEstado == EstadoReserva.FINALIZADA) {
             reserva.setEstadoReserva(nuevoEstado);
-            return "OK: Estado cambiado a " + nuevoEstado + " exitosamente.";
+            return "Estado cambiado a " + nuevoEstado + " exitosamente.";
         } else {
-            return "ERROR: Estado no válido.";
+            return "Estado no válido.";
         }
     }
 

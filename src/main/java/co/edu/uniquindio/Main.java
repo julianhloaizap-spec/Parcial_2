@@ -71,7 +71,7 @@ public class Main {
         boolean salir = false;
 
         while (salir == false) {
-            String menu = "=== SISTEMA DE GESTIÓN PIXELRENT ===\n"
+            String menu = "SISTEMA DE GESTIÓN PIXELRENT \n"
                     + "1. Registrar Sede\n"
                     + "2. Registrar Equipo Audiovisual\n"
                     + "3. Registrar Cliente\n"
@@ -94,7 +94,7 @@ public class Main {
             }
 
             if (esNumeroEntero(opcionStr) == false) {
-                JOptionPane.showMessageDialog(null, "Opción inválida. Ingrese un número entre 1 y 13.", "Atención", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Opción inválida. Ingrese un número entre 1 y 13.", " ", JOptionPane.WARNING_MESSAGE);
                 continue;
             }
 
@@ -157,7 +157,7 @@ public class Main {
             if (sistema.registrarSede(nuevaSede) == true) {
                 JOptionPane.showMessageDialog(null, "Sede registrada exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "Error: Código de sede ya existente.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Código de sede ya existente.", "  ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -165,7 +165,7 @@ public class Main {
     public static void registrarEquipoAudiovisual(SistemaPixelRent sistema) {
         String codSedeEq = JOptionPane.showInputDialog("Ingrese código de la sede a asignar:");
         if (sistema.buscarSede(codSedeEq) == null) {
-            JOptionPane.showMessageDialog(null, "Error: La sede especificada no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La sede especificada no existe.", "  ", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String codEq = JOptionPane.showInputDialog("Ingrese código del equipo audiovisual:");
@@ -176,7 +176,7 @@ public class Main {
         String tipoStr = JOptionPane.showInputDialog(null, menuTipo, "Tipo Equipo", JOptionPane.QUESTION_MESSAGE);
 
         if (tipoStr == null || esNumeroEntero(tipoStr) == false) {
-            JOptionPane.showMessageDialog(null, "Opción de tipo no válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Opción de tipo no válida.", "  ", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -223,7 +223,7 @@ public class Main {
             if (sistema.registrarEquipoAudiovisual(nuevoEquipo, codSedeEq) == true) {
                 JOptionPane.showMessageDialog(null, "Equipo audiovisual registrado correctamente en la sede " + codSedeEq);
             } else {
-                JOptionPane.showMessageDialog(null, "Error: El código de equipo audiovisual ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El código de equipo audiovisual ya existe.", "   ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -239,7 +239,7 @@ public class Main {
             if (sistema.registrarCliente(nuevoCliente) == true) {
                 JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "Error: Ya existe un cliente con ese documento.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ya existe un cliente con ese documento.", "  ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -260,7 +260,7 @@ public class Main {
             if (sistema.registrarOperador(nuevoOp) == true) {
                 JOptionPane.showMessageDialog(null, "Operador registrado exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "Error: Operador ya registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Operador ya registrado.", "  ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -272,7 +272,7 @@ public class Main {
 
         LocalDate fechaRes = convertirAFecha(fechaResStr);
         if (fechaRes == null) {
-            JOptionPane.showMessageDialog(null, "Error: Fecha inválida. Utilice el formato AAAA-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Fecha inválida. Utilice el formato AAAA-MM-DD.", "  ", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -292,22 +292,22 @@ public class Main {
             if (sistema.crearReserva(codRes, idCliRes, fechaRes, turnoRes) == true) {
                 JOptionPane.showMessageDialog(null, "Reserva creada en estado SOLICITADA.");
             } else {
-                JOptionPane.showMessageDialog(null, "Error: Código duplicado o Cliente no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Código duplicado o Cliente no encontrado.", "  ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     public static void agregarEquipoAudiovisualAReserva(SistemaPixelRent sistema) {
-        String cRes = JOptionPane.showInputDialog("Ingrese código de la reserva:");
-        String cEq = JOptionPane.showInputDialog("Ingrese código del equipo audiovisual:");
-        String hStr = JOptionPane.showInputDialog("Ingrese horas de uso requeridas:");
+        String codigoReserva = JOptionPane.showInputDialog("Ingrese código de la reserva:");
+        String codigoEquipo = JOptionPane.showInputDialog("Ingrese código del equipo audiovisual:");
+        String horasrequeridas = JOptionPane.showInputDialog("Ingrese horas de uso requeridas:");
 
-        int hrs = 0;
-        if (esNumeroEntero(hStr) == true) {
-            hrs = Integer.parseInt(hStr);
+        int horas = 0;
+        if (esNumeroEntero(horasrequeridas) == true) {
+            horas = Integer.parseInt(horasrequeridas);
         }
 
-        String resAgregar = sistema.agregarEquipoAudiovisualAReserva(cRes, cEq, hrs);
+        String resAgregar = sistema.agregarEquipoAudiovisualAReserva(codigoReserva, codigoEquipo, horas);
         JOptionPane.showMessageDialog(null, resAgregar);
     }
 
@@ -318,7 +318,7 @@ public class Main {
         if (sistema.asignarOperadorAReserva(cResOp, idOpAsig) == true) {
             JOptionPane.showMessageDialog(null, "Operador asignado a la reserva.");
         } else {
-            JOptionPane.showMessageDialog(null, "Error: No se pudo asignar. Verifique estado de reserva o existencia de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo asignar. Verifique estado de reserva o existencia de datos.", "  ", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -348,7 +348,7 @@ public class Main {
         String fConsStr = JOptionPane.showInputDialog("Ingrese fecha a consultar (AAAA-MM-DD, Ej: 2026-11-20):");
         LocalDate fCons = convertirAFecha(fConsStr);
         if (fCons == null) {
-            JOptionPane.showMessageDialog(null, "Error: Fecha inválida. Debe ser formato AAAA-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Fecha inválida. Debe ser formato AAAA-MM-DD.", "  ", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -406,7 +406,7 @@ public class Main {
                     + "VALOR TOTAL: $" + rValor.calcularValorTotal();
             JOptionPane.showMessageDialog(null, detalleVal);
         } else {
-            JOptionPane.showMessageDialog(null, "Reserva no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Reserva no encontrada.", "  ", JOptionPane.ERROR_MESSAGE);
         }
     }
 
