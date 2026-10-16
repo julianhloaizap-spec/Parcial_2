@@ -5,15 +5,16 @@ public abstract class EquipoAudiovisual {
     protected String codigoEquipo;
     protected String marca;
     protected String modelo;
+    protected EstadoEquipo estadoEquipo;
     //Constructor
-
-    public EquipoAudiovisual(String codigoEquipo, String marca, String modelo) {
+    public EquipoAudiovisual(String codigoEquipo, String marca, String modelo, EstadoEquipo estadoEquipo) {
         this.codigoEquipo = codigoEquipo;
         this.marca = marca;
         this.modelo = modelo;
+        this.estadoEquipo = EstadoEquipo.DISPONIBLE;
     }
+    public abstract double calcularCostoAlquiler(int horas);
     //Getters and setters
-
     public String getCodigoEquipo() {
         return codigoEquipo;
     }
@@ -32,6 +33,11 @@ public abstract class EquipoAudiovisual {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
+    public EstadoEquipo getEstadoEquipo() {
+        return estadoEquipo;
+    }
+    public void setEstadoEquipo(EstadoEquipo estadoEquipo) {
+        this.estadoEquipo = estadoEquipo;
+    }
 
-    public abstract double calcularCostoAlquiler (int horasUsoEquipo);
 }
