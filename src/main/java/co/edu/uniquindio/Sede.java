@@ -17,23 +17,6 @@ public class Sede {
         this.codigoSede = codigoSede;
         this.nombreSede = nombreSede;
         this.direccionSede = direccionSede;
-        this.listEquiposAudiovisuales = new ArrayList<>();
-    }
-    public ArrayList<EquipoAudiovisual> getEquipos() {
-        return listEquiposAudiovisuales;
-    }
-    // Agregar equipo audivisual en la sede
-    public boolean agregarEquipo(EquipoAudiovisual equipo) {
-        if (equipo == null) {
-            return false;
-        }
-        for (int i = 0; i < listEquiposAudiovisuales.size(); i++) {
-            if (listEquiposAudiovisuales.get(i).getCodigoEquipo().equalsIgnoreCase(equipo.getCodigoEquipo())) {
-                return false;
-            }
-        }
-        listEquiposAudiovisuales.add(equipo);
-        return true;
     }
 
     //Getters and Setters

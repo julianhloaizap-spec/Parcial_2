@@ -1,43 +1,38 @@
 package co.edu.uniquindio;
 
 public abstract class EquipoAudiovisual {
-    //Atributos
-    protected String codigoEquipo;
-    protected String marca;
-    protected String modelo;
-    protected EstadoEquipo estadoEquipo;
-    //Constructor
-    public EquipoAudiovisual(String codigoEquipo, String marca, String modelo, EstadoEquipo estadoEquipo) {
-        this.codigoEquipo = codigoEquipo;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.estadoEquipo = EstadoEquipo.DISPONIBLE;
-    }
-    public abstract double calcularCostoAlquiler(int horas);
-    //Getters and setters
-    public String getCodigoEquipo() {
-        return codigoEquipo;
-    }
-    public void setCodigoEquipo(String codigoEquipo) {
-        this.codigoEquipo = codigoEquipo;
-    }
-    public String getMarca() {
-        return marca;
-    }
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-    public String getModelo() {
-        return modelo;
-    }
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-    public EstadoEquipo getEstadoEquipo() {
-        return estadoEquipo;
-    }
-    public void setEstadoEquipo(EstadoEquipo estadoEquipo) {
-        this.estadoEquipo = estadoEquipo;
+    private String codigoEquipoAudiovisual;
+    private String marcaEquipoAudiovisual;
+    private String modeloEquipoAudiovisual;
+    private CondicionEquipoAudiovisual condicionEquipoAudiovisual;
+
+    public EquipoAudiovisual(String codigoEquipoAudiovisual, String marcaEquipoAudiovisual, String modeloEquipoAudiovisual, CondicionEquipoAudiovisual condicionEquipoAudiovisual) {
+        this.codigoEquipoAudiovisual = codigoEquipoAudiovisual;
+        this.marcaEquipoAudiovisual = marcaEquipoAudiovisual;
+        this.modeloEquipoAudiovisual = modeloEquipoAudiovisual;
+        this.condicionEquipoAudiovisual = condicionEquipoAudiovisual;
     }
 
+    public String getCodigoEquipoAudiovisual() {
+        return codigoEquipoAudiovisual;
+    }
+
+    public String getMarcaEquipoAudiovisual() {
+        return marcaEquipoAudiovisual;
+    }
+
+    public String getModeloEquipoAudiovisual() {
+        return modeloEquipoAudiovisual;
+    }
+
+    public CondicionEquipoAudiovisual getCondicionEquipoAudiovisual() {
+        return condicionEquipoAudiovisual;
+    }
+
+    public void setCondicionEquipoAudiovisual(CondicionEquipoAudiovisual condicionEquipoAudiovisual) {
+        this.condicionEquipoAudiovisual = condicionEquipoAudiovisual;
+    }
+
+    public abstract boolean siOperador();
+    public abstract double calcularCostoAlquiler(int horas);
 }
