@@ -21,9 +21,10 @@ public class Reserva {
         this.infoCliente = infoCliente;
         this.fechaSolicitada = fechaSolicitada;
         this.turno = turno;
-        this.operador = operador;
+        this.operador = null;
         this.listDetalleReserva = listDetalleReserva;
-        this.estadoReserva = estadoReserva;
+        this.estadoReserva = estadoReserva.SOLICITADA;
+        this.listDetalleReserva = new ArrayList<>();
     }
 
     //Getters and Setters
@@ -31,22 +32,13 @@ public class Reserva {
         return idReserva;
     }
 
-    public void setIdReserva(String idReserva) {
-        this.idReserva = idReserva;
-    }
-
     public Cliente getInfoCliente() {
         return infoCliente;
-    }
-
-    public void setInfoCliente(Cliente infoCliente) {
-        this.infoCliente = infoCliente;
     }
 
     public LocalDate getFechaSolicitada() {
         return fechaSolicitada;
     }
-
 
     public Turno getTurno() {
         return turno;
@@ -75,4 +67,21 @@ public class Reserva {
     public void setListDetalleReserva(ArrayList<DetalleReserva> listDetalleReserva) {
         this.listDetalleReserva = listDetalleReserva;
     }
+
+    public boolean agregarDetalleReserva(int horasUsoEquipo, EquipoAudiovisual equipoAudiovisual) {
+        if (equipoAudiovisual == null || horasUsoEquipo <= 0) {
+            return false;
+        }
+        if (equipoAudiovisual.getEsta() != EstadoEquipo.DISPONIBLE) {
+            return false;
+        }
+        if (tieneEquipo(equipoAudiovisual.getCodigo())) {
+            return false;
+        }
+        detalles.add(new DetalleReserva(equipoAudiovisual, horas));
+        return true;
+    }
+
+
+
 }

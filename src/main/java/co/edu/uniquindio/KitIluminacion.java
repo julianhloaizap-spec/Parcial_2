@@ -5,7 +5,7 @@ public class KitIluminacion extends EquipoAudiovisual {
     private int cantidadLuces;
     private boolean controlInalambrico;
     private static final double ALQUILERKITILUMINACION = 12000;
-    private static final double AlQUILERCONTROLINALAMBRICO = 15000;
+    private static final double ALQUILERCONTROLINALAMBRICO = 15000;
     //Constructor
 
 
@@ -35,6 +35,17 @@ public class KitIluminacion extends EquipoAudiovisual {
         return ALQUILERKITILUMINACION;
     }
     public double getAlQUILERCONTROLINALAMBRICO() {
-        return AlQUILERCONTROLINALAMBRICO;
+        return ALQUILERCONTROLINALAMBRICO;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(double ALQUILERKITILUMINACION, double ALQUILERKITILUMINACION, int horasUsoEquipo) {
+        double costo= 0;
+        if (controlInalambrico) {
+            costo= ALQUILERKITILUMINACION * horasUsoEquipo + ALQUILERCONTROLINALAMBRICO;
+        } else {
+            costo = ALQUILERKITILUMINACION * horasUsoEquipo;
+        }
+        return costo;
     }
 }

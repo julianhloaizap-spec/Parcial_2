@@ -5,7 +5,7 @@ public class Dron extends EquipoAudiovisual {
     private int vueloMinutos;
     private boolean bateriaAdicional;
     private static final double ALQUILERDRONHORA = 18000;
-    private static final double AlQUILERBATERIAADICIONAL = 20000;
+    private static final double ALQUILERBATERIAADICIONAL = 20000;
     //Constructor
 
     public Dron (String codigoEquipo, String marca, String modelo, int vueloMinutos, boolean bateriaAdicional) {
@@ -33,7 +33,18 @@ public class Dron extends EquipoAudiovisual {
     public double getALQUILERDRONHORA() {
         return ALQUILERDRONHORA;
     }
-    public double getAlQUILERBATERIAADICIONAL() {
-        return AlQUILERBATERIAADICIONAL;
+    public double getALQUILERBATERIAADICIONAL() {
+        return ALQUILERBATERIAADICIONAL;
+    }
+
+    @Override
+    public double calcularCostoAlquiler(double ALQUILERDRONHORA, double ALQUILERBATERIAADICIONAL, int horasUsoEquipo) {
+        double costo = 0;
+        if (bateriaAdicional) {
+            costo = ALQUILERDRONHORA * horasUsoEquipo + ALQUILERBATERIAADICIONAL;
+        } else {
+            costo = ALQUILERDRONHORA * horasUsoEquipo;
+        }
+        return costo;
     }
 }

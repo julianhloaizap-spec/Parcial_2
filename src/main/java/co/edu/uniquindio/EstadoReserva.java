@@ -1,7 +1,7 @@
 package co.edu.uniquindio;
 
 public enum EstadoReserva {
-    SOLICTADA,
+    SOLICITADA,
     CONFIRMADA,
     CANCELADA,
     FINALIZADA

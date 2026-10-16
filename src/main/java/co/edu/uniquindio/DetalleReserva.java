@@ -17,17 +17,14 @@ public class DetalleReserva {
         return horasUsoEquipo;
     }
 
-    public void setHorasUsoEquipo(int horasUsoEquipo) {
-        this.horasUsoEquipo = horasUsoEquipo;
-    }
-
     public EquipoAudiovisual getEquipoAudiovisual() {
         return equipoAudiovisual;
     }
 
-    public void setEquipoAudiovisual(EquipoAudiovisual equipoAudiovisual) {
-        this.equipoAudiovisual = equipoAudiovisual;
+    //Metodo para el calculo del subtotal
+    public double calcularSubtotal() {
+        double subtotal = equipo.calcularCostoAlquiler(horasUsoEquipo);
+            return subtotal;
+        }
     }
 
-
-}

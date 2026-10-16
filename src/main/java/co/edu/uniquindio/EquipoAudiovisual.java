@@ -32,4 +32,6 @@ public abstract class EquipoAudiovisual {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
+
+    public abstract double calcularCostoAlquiler (int horasUsoEquipo);
 }

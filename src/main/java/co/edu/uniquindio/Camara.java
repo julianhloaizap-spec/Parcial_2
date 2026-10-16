@@ -5,7 +5,7 @@ public class Camara extends EquipoAudiovisual {
     private String resolucionMaxima;
     private boolean estabilizador;
     private static final double ALQUILERCAMARAHORA = 12000;
-    private static final double AlQUILERESTABILIZADOR = 15000;
+    private static final double ALQUILERESTABILIZADOR = 15000;
     //Constructor
     public Camara (String codigoEquipo, String marca,String modelo, String resolucionMaxima, boolean estabilizador) {
         super(codigoEquipo,marca,modelo);
@@ -28,8 +28,17 @@ public class Camara extends EquipoAudiovisual {
     public double getALQUILERCAMARAHORA() {
         return ALQUILERCAMARAHORA;
     }
-    public double getAlQUILERESTABILIZADOR() {
-        return AlQUILERESTABILIZADOR;
-    }
+    public double getALQUILERESTABILIZADOR() {
+        return AlQUILERESTABILIZADOR;}
 
+    @Override
+    public double calcularCostoAlquiler(double ALQUILERCAMARAHORA, double ALQUILERESTABILIZADOR, int horasUsoEquipo) {
+        double costo = 0;
+        if (estabilizador) {
+            costo = ALQUILERCAMARAHORA * horasUsoEquipo + ALQUILERESTABILIZADOR;
+        } else {
+            costo = ALQUILERCAMARAHORA * horasUsoEquipo;
+        }
+        return costo;
+    }
 }
